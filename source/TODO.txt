@@ -1,0 +1,27 @@
+
+Add text to show current location of mouse pointer in (X.XX, Y.YY) format.
+
+Add zoom functionality to see coordinates/pixels easier.
+
+Make QIX lines drawing algorithm from
+       https://groups.google.com/forum/#!topic/comp.graphics.algorithms/ifeHoBQyau0
+	
+	I could give you some insight into why the game is the way it is.  I
+worked with the two developers who created QIX when I worked for the
+company that produced the board set for TAITO.
+
+One day (around 1980?) they were in a hot tub in Calif while
+experiencing the effect of a recreational synthetic and there was a
+butterfly nearby.  The butterfly was the inspiration for the STIX.
+Notice the traces that follow the leading edge line?  That's the way
+it looked to them at the time.
+
+If you draw a trapezoid, with the larger of the two parallel sides
+considered the leading edge, the smaller of the two being the trailing
+edge, and then fill the trapezoid with a half-dozen parallel, evenly
+separated lines, and then remove the non-parallel sides of the
+trapezoid.  When the leading edge bounces off of a surface, it follows
+the new direction based on the angle of incidence.  Additionally, the
+STIX will randomly change direction when it's out in the open.  There
+are some characteristics of play as the game proceeds, but I don't
+know if you are interested in that.
