@@ -1,5 +1,8 @@
 package;
 
+import flixel.addons.effects.FlxTrail;
+import flixel.plugin.MouseEventManager;
+
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
@@ -13,7 +16,6 @@ import flash.display.Bitmap;
 import flixel.system.scaleModes.FixedScaleMode;
 import flixel.util.FlxColor;
 
-import flixel.addons.effects.FlxTrail;
 import flixel.tweens.FlxTween;
 //import flixel.tweens.FlxEase;
 
@@ -30,12 +32,35 @@ class MenuState extends FlxState
 	
 	private var _walls:FlxGroup;
 	
-	//Function that is called up when the state is created to set it up. 
+	private var _line1:Flix;
+	
+	
 	override public function create():Void
 	{
-		// Add four walls in FlxGroup with equal thicknesses
+		super.create();
 		
-		_wallThickness = 25;
+		FlxG.mouse.visible = true;
+		
+		createWalls(15);
+		
+		//_line1 = new FlxSprite(FlxG.width / 2, FlxG.height / 2);
+		//_line1.makeGraphic(100, 5, FlxColor.WHITE);
+		//add(_line1);
+		
+		_line1 = new Flix(FlxG.width / 2, FlxG.height / 2);
+		add(_line1);
+		
+		// We need the MouseEventManager plugin for sprite-mouse-interaction
+		FlxG.plugins.add(new MouseEventManager());
+		
+		
+		
+	}
+	
+	// Add four walls in a FlxGroup with equal thicknesses
+	private function createWalls(thickness:Int)
+	{
+		_wallThickness = thickness;
 		
 		_bottomWall = new FlxSprite(_wallThickness, FlxG.height - _wallThickness);
 		_bottomWall.makeGraphic(FlxG.width - (2 * _wallThickness), _wallThickness, FlxColor.SALMON);
@@ -56,10 +81,7 @@ class MenuState extends FlxState
 		_walls.add(_leftWall);
 		
 		add(_walls);
-		
-		super.create();
 	}
-	
 
 	//Function that is called when this state is destroyed - you might want to 
 	//consider setting all objects this state uses to null to help garbage collection.
