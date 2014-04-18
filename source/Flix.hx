@@ -2,6 +2,7 @@ package;
 
 import flixel.addons.effects.FlxTrail;
 import flixel.plugin.MouseEventManager;
+import flixel.util.FlxPoint;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -22,13 +23,8 @@ class Flix extends FlxSprite
 	
 	public function new(X:Float, Y:Float):Void
 	{
-		super(X, Y);
-		
-		makeGraphic(100, 15, FlxColor.WHITE);
-		
-		
-		// Setup the mouse events
-		//MouseEventManager.addSprite(this, onDown, onUp, onOver, onOut);
+		super(X, Y);		
+		makeGraphic(100, 8, FlxColor.WHITE);
 	}
 	
 	public function set(X:Float, Y:Float):Void 
@@ -36,28 +32,4 @@ class Flix extends FlxSprite
 		set_x(X);
 		set_y(Y);
 	}
-	
-	/*private function onDown(Sprite:FlxSprite)
-	{
-		//color = 0x00FF00;
-		color = FlxColor.ROYAL_BLUE;
-	}
-	
-	private function onUp(Sprite:FlxSprite) 
-	{
-		// move to mouse location
-		set_x(FlxG.mouse.screenX);
-		set_y(FlxG.mouse.screenY);		
-	}
-	
-	private function onOver(Sprite:FlxSprite) 
-	{
-		//color = 0x00FF00;
-		color = FlxColor.SILVER;
-	}
-	
-	private function onOut(Sprite:FlxSprite)
-	{
-		color = FlxColor.WHITE;	
-	}*/
 }

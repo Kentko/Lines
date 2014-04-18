@@ -36,6 +36,9 @@ class MenuState extends FlxState
 	private var _line1:Flix;
 	
 	private var dragging:Bool = false;
+	private var deltaX:Float;
+	private var deltaY:Float;
+	private var pointerLocation:FlxPoint;
 	
 	
 	override public function create():Void
@@ -43,16 +46,16 @@ class MenuState extends FlxState
 		super.create();
 		
 		FlxG.mouse.visible = true;
+		FlxG.debugger.visible = true;
 		
 		createWalls(15);
 		
-		// We need the MouseEventManager plugin for sprite-mouse-interaction
-		//  must add this before sprites mouse interacts with
-		//FlxG.plugins.add(new MouseEventManager());
-		
 		_line1 = new Flix(FlxG.width / 2, FlxG.height / 2);
 		add(_line1);
-	
+		
+		pointerLocation = new FlxPoint();
+		
+		
 	}
 	
 	// Add four walls in a FlxGroup with equal thicknesses
@@ -91,22 +94,35 @@ class MenuState extends FlxState
 	//Function that is called once every frame.
 	override public function update():Void
 	{
-		
-		
 		super.update();
-		
+				
+		#if debug
+		FlxG.watch.add(_line1, "x" );
+		FlxG.watch.add(_line1, "y" );
+		FlxG.watch.add(FlxG.mouse, "screenX");
+		FlxG.watch.add(FlxG.mouse, "screenY");
+		#end
+				
+		pointerLocation.x = FlxG.mouse.screenX;
+		pointerLocation.y = FlxG.mouse.screenY;
+				
 		if (FlxG.mouse.justReleased)
 		{
 			dragging = false;
-		}	
+		}
 		
-		if (FlxG.mouse.pressed)
+		if (FlxG.mouse.justPressed && _line1.overlapsPoint(FlxG.mouse, true))
 		{
-			if (dragging == true || _line1.overlapsPoint(FlxG.mouse, true))
-			{
-				dragging = true;
-				_line1.set(FlxG.mouse.screenX, FlxG.mouse.screenY);
-			}
+			dragging = true;
+			
+			// calculate x and y offsets to line's origin
+			deltaX = pointerLocation.x - _line1.x;
+			deltaY = pointerLocation.y - _line1.y;
+		}
+		
+		if (FlxG.mouse.pressed && dragging == true)
+		{
+			_line1.set(pointerLocation.x - deltaX, pointerLocation.y - deltaY);
 		}
 		
 	}
