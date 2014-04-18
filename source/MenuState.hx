@@ -43,18 +43,13 @@ class MenuState extends FlxState
 		
 		createWalls(15);
 		
-		//_line1 = new FlxSprite(FlxG.width / 2, FlxG.height / 2);
-		//_line1.makeGraphic(100, 5, FlxColor.WHITE);
-		//add(_line1);
+		// We need the MouseEventManager plugin for sprite-mouse-interaction
+		//  must add this before sprites mouse interacts with
+		FlxG.plugins.add(new MouseEventManager());
 		
 		_line1 = new Flix(FlxG.width / 2, FlxG.height / 2);
 		add(_line1);
-		
-		// We need the MouseEventManager plugin for sprite-mouse-interaction
-		FlxG.plugins.add(new MouseEventManager());
-		
-		
-		
+	
 	}
 	
 	// Add four walls in a FlxGroup with equal thicknesses
@@ -94,5 +89,17 @@ class MenuState extends FlxState
 	override public function update():Void
 	{
 		super.update();
-	}	
+		
+		if (FlxG.mouse.justReleased)
+		{
+			// do something?
+		}	
+		
+		if (FlxG.mouse.pressed)
+		{
+			if (_line1.x == FlxG.mouse.screenX)
+			_line1.set(FlxG.mouse.screenX, FlxG.mouse.screenY);
+		}
+		
+	}
 }
