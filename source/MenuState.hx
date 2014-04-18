@@ -2,6 +2,7 @@ package;
 
 import flixel.addons.effects.FlxTrail;
 import flixel.plugin.MouseEventManager;
+import flixel.util.FlxPoint;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -34,6 +35,8 @@ class MenuState extends FlxState
 	
 	private var _line1:Flix;
 	
+	private var dragging:Bool = false;
+	
 	
 	override public function create():Void
 	{
@@ -45,7 +48,7 @@ class MenuState extends FlxState
 		
 		// We need the MouseEventManager plugin for sprite-mouse-interaction
 		//  must add this before sprites mouse interacts with
-		FlxG.plugins.add(new MouseEventManager());
+		//FlxG.plugins.add(new MouseEventManager());
 		
 		_line1 = new Flix(FlxG.width / 2, FlxG.height / 2);
 		add(_line1);
@@ -88,17 +91,22 @@ class MenuState extends FlxState
 	//Function that is called once every frame.
 	override public function update():Void
 	{
+		
+		
 		super.update();
 		
 		if (FlxG.mouse.justReleased)
 		{
-			// do something?
+			dragging = false;
 		}	
 		
 		if (FlxG.mouse.pressed)
 		{
-			if (_line1.x == FlxG.mouse.screenX)
-			_line1.set(FlxG.mouse.screenX, FlxG.mouse.screenY);
+			if (dragging == true || _line1.overlapsPoint(FlxG.mouse, true))
+			{
+				dragging = true;
+				_line1.set(FlxG.mouse.screenX, FlxG.mouse.screenY);
+			}
 		}
 		
 	}

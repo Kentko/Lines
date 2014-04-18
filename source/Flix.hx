@@ -24,11 +24,11 @@ class Flix extends FlxSprite
 	{
 		super(X, Y);
 		
-		makeGraphic(100, 1, FlxColor.WHITE);
+		makeGraphic(100, 15, FlxColor.WHITE);
 		
 		
 		// Setup the mouse events
-		MouseEventManager.addSprite(this, onDown, onUp, onOver, onOut);
+		//MouseEventManager.addSprite(this, onDown, onUp, onOver, onOut);
 	}
 	
 	public function set(X:Float, Y:Float):Void 
@@ -37,7 +37,7 @@ class Flix extends FlxSprite
 		set_y(Y);
 	}
 	
-	private function onDown(Sprite:FlxSprite)
+	/*private function onDown(Sprite:FlxSprite)
 	{
 		//color = 0x00FF00;
 		color = FlxColor.ROYAL_BLUE;
@@ -59,5 +59,5 @@ class Flix extends FlxSprite
 	private function onOut(Sprite:FlxSprite)
 	{
 		color = FlxColor.WHITE;	
-	}
+	}*/
 }
