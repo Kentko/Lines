@@ -27,6 +27,7 @@ class Flix extends FlxSprite
 		makeGraphic(100, 8, FlxColor.WHITE);
 	}
 	
+	// set the x and y coordinates
 	public function set(X:Float, Y:Float):Void 
 	{
 		set_x(X);
