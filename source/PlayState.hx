@@ -1,6 +1,5 @@
 package;
 
-import flixel.addons.effects.FlxTrail;
 import flixel.plugin.MouseEventManager;
 import flixel.util.FlxPoint;
 
@@ -17,13 +16,13 @@ import flash.display.Bitmap;
 import flixel.system.scaleModes.FixedScaleMode;
 import flixel.util.FlxColor;
 
+import flixel.addons.effects.FlxTrailArea;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
 import flixel.util.FlxRandom;
 
 class PlayState extends FlxState
 {
-	// variables
 	private var _topWall:FlxSprite;
 	private var _rightWall:FlxSprite;
 	private var _bottomWall:FlxSprite;
@@ -35,6 +34,9 @@ class PlayState extends FlxState
 	
 	private var _line1:Flix;
 	private var _lineTween:Flix;
+	private var _lineAngleTween:FlxSprite;
+	
+	private var _trailArea:FlxTrailArea;
 	
 	private var dragging:Bool = false;
 	private var deltaX:Float;
@@ -54,7 +56,7 @@ class PlayState extends FlxState
 		_line1 = new Flix(FlxG.width / 2, FlxG.height / 2);
 		add(_line1);
 		
-		FlxTween.color(_line1, 2.0, FlxColor.PINK, FlxColor.RED, 1, 1, { ease: FlxEase.sineInOut, type: FlxTween.PINGPONG });
+		FlxTween.color(_line1, 2.0, FlxColor.PINK, FlxColor.RED, 1, 1, { ease: FlxEase.expoInOut, type: FlxTween.PINGPONG });
 		
 		
 		_lineTween = new Flix(FlxG.width / 3, FlxG.height / 3);
@@ -63,6 +65,22 @@ class PlayState extends FlxState
 		//FlxTween.tween(_lineTween, { x:350, y:400 }, 4, { type:FlxTween.PINGPONG, ease:FlxEase.sineInOut, complete:changeColor, startDelay:.2, loopDelay:2 } );
 		FlxTween.circularMotion(_lineTween, 250, 250, 50, 0, true, 2, true, { type:FlxTween.PINGPONG, ease:FlxEase.sineInOut, complete:changeColor, startDelay:.2, loopDelay:2 } );
 		//FlxTween.cubicMotion(_lineTween, 0, 0, 500, 100, 400, 200, 100, 100, 2, { type:FlxTween.PINGPONG, ease:FlxEase.sineInOut, complete:changeColor, startDelay:.2, loopDelay:2 });
+		
+		
+		_lineAngleTween = new FlxSprite(30, 400);
+		
+		_lineAngleTween.makeGraphic(100, 3, FlxRandom.color());
+		_lineAngleTween.antialiasing = true;
+		add(_lineAngleTween);
+		
+		FlxTween.angle(_lineAngleTween, -30, 30, .3, { ease: FlxEase.sineInOut, type: FlxTween.PINGPONG } );
+		
+		// Need to setup trail area after creating other sprites or it won't show the trails
+		_trailArea = new FlxTrailArea(0, 0, FlxG.width, FlxG.height, 0.8, 1, false, true);
+		_trailArea.add(_lineAngleTween);
+		_trailArea.add(_line1);
+		_trailArea.add(_lineTween);
+		add(_trailArea);
 		
 		pointerLocation = new FlxPoint();		
 		
@@ -102,10 +120,10 @@ class PlayState extends FlxState
 		
 		add(_walls);
 		
-		FlxTween.color(_topWall, 2.0, FlxRandom.color(), FlxRandom.color(), 1, 1, { ease: FlxEase.sineInOut, type: FlxTween.PINGPONG } );
-		FlxTween.color(_bottomWall, 2.0, FlxRandom.color(), FlxRandom.color(), 1, 1, { ease: FlxEase.sineInOut, type: FlxTween.PINGPONG });
-		FlxTween.color(_rightWall, 2.0, FlxRandom.color(), FlxRandom.color(), 1, 1, { ease: FlxEase.sineInOut, type: FlxTween.PINGPONG });
-		FlxTween.color(_leftWall, 2.0, FlxRandom.color(), FlxRandom.color(), 1, 1, { ease: FlxEase.sineInOut, type: FlxTween.PINGPONG });
+		FlxTween.color(_topWall, 2.0, FlxRandom.color(), FlxRandom.color(), 1, 1, { ease: FlxEase.expoInOut, type: FlxTween.PINGPONG } );
+		FlxTween.color(_bottomWall, 2.0, FlxRandom.color(), FlxRandom.color(), 1, 1, { ease: FlxEase.expoInOut, type: FlxTween.PINGPONG });
+		FlxTween.color(_rightWall, 2.0, FlxRandom.color(), FlxRandom.color(), 1, 1, { ease: FlxEase.expoInOut, type: FlxTween.PINGPONG });
+		FlxTween.color(_leftWall, 2.0, FlxRandom.color(), FlxRandom.color(), 1, 1, { ease: FlxEase.expoInOut, type: FlxTween.PINGPONG });
 		
 		
 	}
