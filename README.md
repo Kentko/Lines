@@ -5,3 +5,8 @@ Testing out some HaxeFlixel features that don't have many demos:
 -  Using angle tweening
 -  Using a FlxTrailArea
 -  Using FlxRandom for random colors
+
+NOTE: Flashing colors may cause epileptic seizures :)
+
+
+
