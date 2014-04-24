@@ -8,7 +8,7 @@ Testing out some HaxeFlixel features that don't have many demos:
 
 NOTE: Flashing colors may cause epileptic seizures :)
 
-![](https://github.com/Kentko/Lines/blob/master/Lines.jpg)
+![](https://cloud.githubusercontent.com/assets/7244664/2784940/9f497964-cb47-11e3-9dd9-821205e2a988.jpg)
 
 
 
